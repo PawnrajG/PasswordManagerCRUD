@@ -25,7 +25,7 @@ function App() {
   }
 
   const getCredentials = async () =>{
-    await axios.get("http://localhost:8000/credentials").then((res)=>{
+    await axios.get("https://passwordmanagercrud.onrender.com/credentials").then((res)=>{
       // console.log(res.data);
       setDetails(res.data);
       filterDetails(res.data);
@@ -43,7 +43,7 @@ function App() {
     const isConfirm = confirm(`Are you sure to delete ${concern}'s password?`);
     if(isConfirm){
       try{
-        await axios.delete(`http://localhost:8000/credentials/${id}`).then((res)=>{
+        await axios.delete(`https://passwordmanagercrud.onrender.com/credentials/${id}`).then((res)=>{
           setDetails(res.data);
           filterDetails(res.data);
         });
@@ -74,12 +74,12 @@ function App() {
   const addData = async (e)=>{
     e.preventDefault();
     if(userData.id){
-      await axios.patch(`http://localhost:8000/credentials/${userData.id}`,userData).then((res)=>{
+      await axios.patch(`https://passwordmanagercrud.onrender.com/credentials/${userData.id}`,userData).then((res)=>{
         // console.log("in patch");
         alert(res.data.message);
       });
     }else{
-      await axios.post("http://localhost:8000/credentials",userData).then((res)=>{
+      await axios.post("https://passwordmanagercrud.onrender.com/credentials",userData).then((res)=>{
         // console.log("in post");
         alert(res.data.message);
       });

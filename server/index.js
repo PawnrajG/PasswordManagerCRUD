@@ -9,7 +9,7 @@ const port = 8000;
 
 //middlewares
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:"https://passwordmanagercrud.onrender.com",
     methods:["GET","POST","PATCH","DELETE"],
 })
 );
