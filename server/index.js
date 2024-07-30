@@ -31,7 +31,7 @@ app.post("/credentials", (request,response)=>{
         return response.json({ "message": "Please fill all the fields!"});
     }else{
         credentials.push({id,concern,password});
-        fs.writeFile("sample.json", JSON.stringify(credentials), (error, data)=>{
+        fs.writeFile("./sample.json", JSON.stringify(credentials), (error, data)=>{
             return response.json({"message": "Your data is added successfully!"});
         });
     }
@@ -47,7 +47,7 @@ app.patch("/credentials/:id", (request,response)=>{
     }else{
         let index = credentials.findIndex((data)=> data.id === Reqid);
         credentials.splice(index,1,{...request.body}); //its starts from index and remove one object and add request body at the index
-        fs.writeFile("sample.json", JSON.stringify(credentials), (error, data)=>{
+        fs.writeFile("./sample.json", JSON.stringify(credentials), (error, data)=>{
             return response.json({"message": "Your data is updated successfully!"});
             // return response.json(credentials); 
         });
@@ -66,7 +66,7 @@ app.delete("/credentials/:id", (request, response)=>{
     let id = Number(request.params.id); // get details id using req.params.id and converting to number
     let remainDetails = credentials.filter((data)=>Number(data.id) !== id); // filtering the data in json file with given id
     //writing the remaining details in the json file using fs library of node.js
-    fs.writeFile("sample.json", JSON.stringify(remainDetails), (error, data)=>{
+    fs.writeFile("./sample.json", JSON.stringify(remainDetails), (error, data)=>{
         return response.json(remainDetails);
     });
 });
