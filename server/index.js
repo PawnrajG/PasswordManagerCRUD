@@ -9,7 +9,7 @@ const port = 8000;
 
 //middlewares
 app.use(cors({
-    origin:"https://passwordmanagercrud.onrender.com",
+    origin:"https://mypasswordmanage.netlify.app",
     methods:["GET","POST","PATCH","DELETE"],
 })
 );
