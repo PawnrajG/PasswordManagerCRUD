@@ -3,7 +3,7 @@ const app = express(); //create an instance of express module and assigning to a
 const credentials = require("./sample.json");
 const fs = require("fs"); // it is filesystem library in node.js to handling files
 const cors = require("cors");
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 
 
