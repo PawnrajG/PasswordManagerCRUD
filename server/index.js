@@ -3,18 +3,24 @@ const app = express(); //create an instance of express module and assigning to a
 const credentials = require("./sample.json");
 const fs = require("fs"); // it is filesystem library in node.js to handling files
 const cors = require("cors");
-const port = 5000;
+const port = 8000;
+
+
 
 //middlewares
-app.use(express.json());
-app.use(
-    cors({
-        origin: "http://localhost:5173",
-        methods: ["GET", "POST", "PATCH", "DELETE"],
-    })
+app.use(cors({
+    origin:"http://localhost:5173",
+    methods:["GET","POST","PATCH","DELETE"],
+})
 );
+app.use(express.json());
 
+// Serve static files from the client/dist directory
+// app.use(express.static(path.join(__dirname, '../client/dist')));
 
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+// });
 
 //creating route to store the user data
 app.post("/credentials", (request,response)=>{
@@ -34,12 +40,12 @@ app.post("/credentials", (request,response)=>{
 
 //update user data
 app.patch("/credentials/:id", (request,response)=>{
-    let id = Number(request.params.id);
-    let {concern,password} = request.body;
+    let Reqid = Number(request.params.id);
+    let {id,concern,password} = request.body;
     if(!concern || !password){
         return response.json({ "message": "Please check all fields are filled!"});
     }else{
-        let index = credentials.findIndex((data)=> data.id === id);
+        let index = credentials.findIndex((data)=> data.id === Reqid);
         credentials.splice(index,1,{...request.body}); //its starts from index and remove one object and add request body at the index
         fs.writeFile("sample.json", JSON.stringify(credentials), (error, data)=>{
             return response.json({"message": "Your data is updated successfully!"});

@@ -8,7 +8,6 @@ function App() {
   const [details, setDetails] = useState([]);  // the details variable is initialized by setDetails function 
   const [filteredDetails, filterDetails] = useState([]);
   const [isModelUsed, setModel] = useState(false);
-  const [isVisible, setVisibility] = useState(false);
   const [userData, setUserData] = useState({
     concern: "",
     password: ""
@@ -26,7 +25,7 @@ function App() {
   }
 
   const getCredentials = async () =>{
-    await axios.get("http://localhost:5000/credentials").then((res)=>{
+    await axios.get("http://localhost:8000/credentials").then((res)=>{
       // console.log(res.data);
       setDetails(res.data);
       filterDetails(res.data);
@@ -44,7 +43,7 @@ function App() {
     const isConfirm = confirm(`Are you sure to delete ${concern}'s password?`);
     if(isConfirm){
       try{
-        await axios.delete(`http://localhost:5000/credentials/${id}`).then((res)=>{
+        await axios.delete(`http://localhost:8000/credentials/${id}`).then((res)=>{
           setDetails(res.data);
           filterDetails(res.data);
         });
@@ -75,12 +74,12 @@ function App() {
   const addData = async (e)=>{
     e.preventDefault();
     if(userData.id){
-      await axios.patch(`http://localhost:5000/credentials/${userData.id}`,userData).then((res)=>{
+      await axios.patch(`http://localhost:8000/credentials/${userData.id}`,userData).then((res)=>{
         // console.log("in patch");
         alert(res.data.message);
       });
     }else{
-      await axios.post("http://localhost:5000/credentials",userData).then((res)=>{
+      await axios.post("http://localhost:8000/credentials",userData).then((res)=>{
         // console.log("in post");
         alert(res.data.message);
       });
@@ -103,9 +102,6 @@ function App() {
     setModel(true);
   }
 
-  const passwordVisible = ()=>{
-      isVisible?setVisibility(false):setVisibility(true);
-  }
 
   return (
     <>
